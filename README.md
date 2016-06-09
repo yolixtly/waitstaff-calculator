@@ -1,5 +1,5 @@
 # waitstaff-calculator
-Angular Project with Thinkful
+Angular Project with Thinkful :http://yolixtly.github.io/waitstaff-calculator/
 
 -The current Version of Waitstaff Calculator works fine! I focus on creating a responsive app using bootrtrap. 
 
@@ -7,8 +7,8 @@ Angular Project with Thinkful
 
 Views of the project: 
 
-<h2>Desktop View:</h2> 
+<h3>Desktop View:</h3> 
 <img src="images/desktop.png">
 
-<h2>Mobile View: </h2>
+<h3>Mobile View: </h3>
 <img src="images/desktop.png">
