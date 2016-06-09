@@ -43,6 +43,7 @@ label {
 }
 input {
   border: 0.2em solid;
+  outline: none;
 }
 button {
   margin: 2em;
@@ -50,6 +51,7 @@ button {
   border: 0.2em solid;
   padding: 0.5em;
   width: 7em;
+  outline: none;
 }
 /* RightUp container Styles */
 span {
@@ -69,6 +71,12 @@ hr {
   color: #fa2a4d;
   text-decoration: underline;
   font-size: 1.5em;
+}
+.ng-valid.ng-dirty {
+  background-color: #c7dfc7;
+}
+.ng-invalid.ng-dirty {
+  background-color: #e5e0b0;
 }
 @media (max-width: 700px) {
   label {
