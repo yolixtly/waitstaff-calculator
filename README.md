@@ -11,4 +11,4 @@ Views of the project:
 <img src="images/desktop.png">
 
 <h3>Mobile View: </h3>
-<img src="images/mobile.png">
+<img src="images/mobileView.png">
