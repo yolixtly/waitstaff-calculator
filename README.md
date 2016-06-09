@@ -1,2 +1,2 @@
 # waitstaff-calculator
-Second Angular Project
+Angular Project with Thinkful

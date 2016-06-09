@@ -1,0 +1,109 @@
+@box-height : 16em;
+@final-border: 0.2em solid;
+
+/* title variables */
+
+@title-align: center;
+@title-padding: 0.7em;
+@title-margin: 0;
+
+/*Labels and text variable */
+
+@label-align: right;
+@label-size: 1.2em;
+
+/* Common Selectors */
+
+//  .@{title-selector} {
+// 	border-bottom: 0.2em solid;
+// 	padding: @title-padding;
+// 	margin: @title-margin;
+// 	margin-bottom: 1.5em;
+// }
+// @{title-selector} : rightUp h3;
+// @{title-selector} : leftUp h3;
+
+body {
+	font-family: 'Muli', sans-serif;
+}
+header {
+	text-align: center;
+	letter-spacing: 0.1em;
+}
+
+/*Containers styles*/
+
+.leftUp, .rightUp, .rightDown {
+	border: @final-border;
+	text-align: @title-align;
+	padding:0;
+	margin-top: 2em;
+	
+}
+.leftUp {
+ 	height: 34em;
+}
+.rightUp, .rightDown {
+	height: @box-height;
+}
+
+ .leftUp h3, .rightUp h3, .rightDown h3{
+	border-bottom: 0.2em solid;
+	padding: @title-padding;
+	margin: @title-margin;
+	margin-bottom: 1.5em;
+}
+
+/*LeftUp container Styles*/
+
+.inputBox {
+	letter-spacing: 0.1em;
+
+}
+label {
+	width: 40%;
+	text-align: @label-align;
+	font-size: @label-size;
+}
+input {
+	border: @final-border;
+}
+
+	button {
+		margin: 2em;
+		background: none;
+		border: @final-border;
+		padding: 0.5em;	
+		width: 7em;
+	}
+
+
+/* RightUp container Styles */
+
+span {
+	margin-left: 2em;
+}
+hr {
+	border: 0.1em solid;
+	width: 60%;
+	margin: 0 auto;
+}
+
+/* */
+#reset {
+	float: right;
+}
+
+@media (max-width: 700px){
+	@label-size-xs : 0.9em;
+	label {
+		font-size: @label-size-xs;
+	}
+	.leftUp {
+		height: 25em;
+	}
+	#reset {
+		width: 40%;
+
+	}
+}
