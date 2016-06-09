@@ -1,65 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>WaitStaff Calculator</title>
-		<link rel="icon" href="images/icon.jpg">
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-		<link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="css/style.css">
-	</head>
-	<body>
-		<header>
-			<h1>Waitstaff Calculator</h1>
-		</header>
-		<section>
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-md-6 left">
-						<div class="leftUp">
-							<h3>Enter the Meal Details</h3>
-							<div class="inputBox">
-								<label for="price">Base Meal Price: $</label>
-								<input type="number" name="price">
-							</div>
-							<br>
-							<div class="inputBox">
-								<label for="tax">Tax Rate: %</label>
-								<input type="number" name="tax">
-							</div>
-							<br>
-							<div class="inputBox">
-								<label for="tip">Tip Percentage: %</label>
-								<input type="number" name="tip">
-							</div>
-							<br>
-							<div class="btn-container">
-								<button>Submit</button>
-								<button>Cancel</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-12 col-md-6 right">
-						<div class="col-xs-12 rightUp">
-							<h3>Customer Charges</h3>
-							<label>Subtotal: </label><span>0.00</span><br>
-							<label>Tip: </label><span>0.00</span>
-							<hr>
-							<label>Total: </label><span>0.00</span>
-						</div>
-						<div class="col-xs-12 rightDown">
-						<h3>My Earnings Info</h3>
-						<label>Tip total: </label><span>0.00</span><br>
-						<label>Meal Count: </label><span>0</span><br>
-						<label>Average Tip Per Meal: </label><span>0.00</span>
-						</div>
-					</div>
-					<button id="reset">Reset</button>
-				</div>
-				
-			</div>
-		</section>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="app/app.js"></script>
-	</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>WaitStaff Calculator</title>
+    <link rel="icon" href="images/icon.jpg">
+    <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body ng-app="myCalculator">
+    <header>
+      <h1>Waitstaff Calculator</h1>
+    </header>
+    <section ng-controller="CalculatorCtrl as num">
+      <div class="container">
+        <div class="row">
+          <form name="num.myForm" ng-submit="num.submitForm()" novalidate>
+            <div class="col-xs-12 col-md-6 left">
+              <div class="leftUp">
+                <h3>Enter the Meal Details</h3>
+                <div class="inputBox">
+                  <label for="price">Base Meal Price: $</label>
+                  <input type="number" name="price" ng-model="num.price" required>
+                </div>
+                <br>
+                <div class="inputBox">
+                  <label for="tax">Tax Rate: %</label>
+                  <input type="number" name="tax" ng-model="num.tax" required>
+                </div>
+                <br>
+                <div class="inputBox">
+                  <label for="tip">Tip Percentage: %</label>
+                  <input type="number" name="tip" ng-model="num.tip" required>
+                </div>
+                <br>
+                <div class="btn-container">
+                  <button id="submit">Submit</button>
+                  <button id="cancel" ng-click="num.cancelValues()">Cancel</button>
+                </div>
+                <div id="error">
+                  <p>{{ num.errorMsg }}</p>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="col-xs-12 col-md-6 right">
+            <div class="col-xs-12 rightUp">
+              <h3>Customer Charges</h3>
+              <label>Subtotal: </label><span>{{ num.subtotalCharge | number:2 }}</span><br>
+              <label>Tip: </label><span>{{ num.tipCharge | number:2 }}</span>
+              <hr>
+              <label>Total: </label><span>{{ num.totalCharge | number:2 }}</span>
+            </div>
+            <div class="col-xs-12 rightDown">
+              <h3>My Earnings Info</h3>
+              <label>Tip total: </label><span>{{ num.tipTotal | number:2 }}</span><br>
+              <label>Meal Count: </label><span>{{ num.mealCount | number:2 }}</span><br>
+              <label>Average Tip Per Meal: </label><span>{{ num.tipAverage | number:2 }}</span>
+            </div>
+          </div>
+          <button id="reset" ng-click="num.resetAll()">Reset</button>
+        </div>
+        
+      </div>
+    </section>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="app/app.js"></script>
+  </body>
 </html>

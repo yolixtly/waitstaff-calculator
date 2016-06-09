@@ -1,0 +1,22 @@
+{
+  "name": "waitstaff-calculator",
+  "homepage": "https://github.com/yolixtly/waitstaff-calculator",
+  "authors": [
+    "yolixtly <yolixtly_13@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.6"
+  }
+}

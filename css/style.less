@@ -41,7 +41,7 @@ header {
 	
 }
 .leftUp {
- 	height: 34em;
+ 	height: 35em;
 }
 .rightUp, .rightDown {
 	height: @box-height;
@@ -89,10 +89,19 @@ hr {
 	margin: 0 auto;
 }
 
-/* */
+/* Reset button */
 #reset {
 	float: right;
 }
+
+/* Angular Validation styles */
+ 
+#error {
+	color: #fa2a4d;
+	text-decoration: underline;
+	font-size: 1.5em;
+}
+
 
 @media (max-width: 700px){
 	@label-size-xs : 0.9em;
@@ -100,7 +109,7 @@ hr {
 		font-size: @label-size-xs;
 	}
 	.leftUp {
-		height: 25em;
+		height: 27em;
 	}
 	#reset {
 		width: 40%;
