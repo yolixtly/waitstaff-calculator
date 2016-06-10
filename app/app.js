@@ -2,71 +2,71 @@ var app = angular.module("myCalculator", []);
 
 app.controller("CalculatorCtrl", function(){
 
-	this.initCharge = function (){
-		this.subtotalCharge = 0;
-		this.tipCharge = 0;
-		this.totalCharge = 0;	
+ 	var vm = this;
+
+	vm.initCharge = function (){
+		vm.subtotalCharge = 0;
+		vm.tipCharge = 0;
+		vm.totalCharge = 0;	
 	};
 
-	this.initEarnings = function(){
-		this.tipTotal = 0;
-		this.mealCount = 0;
-		this.tipAverage = 0;
+	vm.initEarnings = function(){
+		vm.tipTotal = 0;
+		vm.mealCount = 0;
+		vm.tipAverage = 0;
 	};
 
 	//Trigered by Cancel button
-	this.cancelValues = function(){
-	this.price = "";
-	this.tax = "";
-	this.tip ="";
+	vm.cancelValues = function(){
+	vm.price = "";
+	vm.tax = "";
+	vm.tip ="";
  	};
 
  	//Trigered by Reset Button
- 	this.resetAll = function() {
- 		this.errorMsg= "";
- 		this.cancelValues();
- 		this.initCharge();
- 		this.initEarnings();
+ 	vm.resetAll = function() {
+ 		vm.errorMsg= "";
+ 		vm.cancelValues();
+ 		vm.initCharge();
+ 		vm.initEarnings();
  	};
 
  	//initial Values of App
- 	this.resetAll();
-
+ 	vm.resetAll();
+ 
  	//Submit Events 
-	this.submitForm = function(){
-		if(this.myForm.$invalid){
-			this.errorMsg = "Please enter valid numeric values";
+	vm.submitForm = function(){
+		if(vm.myForm.$invalid){
+			vm.errorMsg = "Please enter valid numeric values";
 		} else {
-			this.errorMsg = "";
-			this.subtotalCharge = this.price * (1 + (this.tax)/100);
-			this.tipCharge = this.subtotalCharge * (this.tip / 100); 
-	 		this.totalCharge = this.subtotalCharge + this.tipCharge;
-			this.mealCount++;
-			this.finalTips();
-			this.averageTip();
-			//Only resets price, tip and tax values
-			this.cancelValues();
+			vm.errorMsg = "";
+			vm.mealCount++;
+			vm.finalTips();
+			vm.averageTip();
 		}	
 	};
 
-	this.finalTips = function(){
-		this.tipTotal+= this.tipCharge;
+	vm.$watchGroup(["vm.price", "vm.tax", "vm.tip"], function(newValues, oldValues){
+			if(vm.myForm.$invalid){
+				vm.initCharge();
+			} else {
+			vm.subtotalCharge = vm.price * (1 + (vm.tax/100));
+			vm.tipCharge = vm.subtotalCharge * (vm.tip / 100); 
+			vm.totalCharge = vm.subtotalCharge + vm.tipCharge;
+			//Only resets price, tip and tax values
+			vm.cancelValues();
+			}
+	});
+
+		vm.finalTips = function(){
+		vm.tipTotal+= vm.tipCharge;
 	};
 
-	this.averageTip = function(){
-		console.log(this.tipTotal);
-		console.log(this.mealCount);
-		this.tipAverage = this.tipTotal / this.mealCount;
+	vm.averageTip = function(){
+		console.log(vm.tipTotal);
+		console.log(vm.mealCount);
+		vm.tipAverage = vm.tipTotal / vm.mealCount;
 	};
-	// this.$watchGroup(["this.price", "this.tax", "this.tip"], function(){
-	// 		if(this.myForm.$invalid){
-	// 			this.initCharge();
-	// 		} else {
-	// 		this.subtotalCharge = this.price * (1 + (this.tax)/100);
-	// 		this.tipCharge = this.subtotalCharge * (this.tip / 100); 
-	// 		this.totalCharge = this.subtotalCharge + this.tipCharge;
-	// 		}
-	// });
 	
 
 });
