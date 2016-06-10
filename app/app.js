@@ -1,6 +1,6 @@
 var app = angular.module("myCalculator", []);
 
-app.controller("CalculatorCtrl", function(){
+app.controller("CalculatorCtrl",[ '$scope', function($scope){
 
  	var vm = this;
 
@@ -41,32 +41,29 @@ app.controller("CalculatorCtrl", function(){
 		} else {
 			vm.errorMsg = "";
 			vm.mealCount++;
-			vm.finalTips();
-			vm.averageTip();
+			vm.tipTotal+= this.tip;
 		}	
 	};
 
-	vm.$watchGroup(["vm.price", "vm.tax", "vm.tip"], function(newValues, oldValues){
-			if(vm.myForm.$invalid){
-				vm.initCharge();
+	$scope.$watchGroup(["vm.price", "vm.tax", "vm.tip"], function(newValues, oldValues, scope){
+            if(vm.myForm.$invalid){
+                vm.initCharge();
+            } else {
+                vm.subtotalCharge = vm.price * (1 + (vm.tax/100));
+                vm.tipCharge = vm.subtotalCharge * (vm.tip / 100);
+                vm.totalCharge = vm.subtotalCharge + vm.tipCharge;
+                //Only resets price, tip and tax values
+                // vm.cancelValues();
+            }
+    });
+
+
+	$scope.$watchGroup(['vm.tipTotal', 'vm.mealCount'], function(newValues,oldValues, scope){
+			if($scope.mealCount != 0){
+				vm.tipAverage = vm.tipTotal / vm.mealCount;
 			} else {
-			vm.subtotalCharge = vm.price * (1 + (vm.tax/100));
-			vm.tipCharge = vm.subtotalCharge * (vm.tip / 100); 
-			vm.totalCharge = vm.subtotalCharge + vm.tipCharge;
-			//Only resets price, tip and tax values
-			vm.cancelValues();
+				vm.tipAverage = 0;
 			}
+		
 	});
-
-		vm.finalTips = function(){
-		vm.tipTotal+= vm.tipCharge;
-	};
-
-	vm.averageTip = function(){
-		console.log(vm.tipTotal);
-		console.log(vm.mealCount);
-		vm.tipAverage = vm.tipTotal / vm.mealCount;
-	};
-	
-
-});
+}]);
