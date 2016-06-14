@@ -1,13 +1,11 @@
 var app = angular.module("myCalculator", []);
-
-app.controller("CalculatorCtrl",[ '$scope', function($scope){
-
- 	var vm = this;
+app.controller("CalculatorCtrl", ['$scope', function($scope){
+	var vm = this;
 
 	vm.initCharge = function (){
 		vm.subtotalCharge = 0;
 		vm.tipCharge = 0;
-		vm.totalCharge = 0;	
+		vm.totalCharge = 0;
 	};
 
 	vm.initEarnings = function(){
@@ -33,37 +31,48 @@ app.controller("CalculatorCtrl",[ '$scope', function($scope){
 
  	//initial Values of App
  	vm.resetAll();
- 
- 	//Submit Events 
+
+ 	//Submit Events
 	vm.submitForm = function(){
 		if(vm.myForm.$invalid){
 			vm.errorMsg = "Please enter valid numeric values";
 		} else {
 			vm.errorMsg = "";
 			vm.mealCount++;
-			vm.tipTotal+= this.tip;
-		}	
+			vm.finalTips();
+			vm.averageTip();
+		}
 	};
-
-	$scope.$watchGroup(["vm.price", "vm.tax", "vm.tip"], function(newValues, oldValues, scope){
-            if(vm.myForm.$invalid){
-                vm.initCharge();
-            } else {
-                vm.subtotalCharge = vm.price * (1 + (vm.tax/100));
-                vm.tipCharge = vm.subtotalCharge * (vm.tip / 100);
-                vm.totalCharge = vm.subtotalCharge + vm.tipCharge;
-                //Only resets price, tip and tax values
-                // vm.cancelValues();
-            }
+	// console.log(vm.myForm.$valid);
+	$scope.$watchGroup([
+            () => vm.price,
+            () => vm.tax,
+            () => vm.tip
+        ], 
+        
+        function(newVal, oldVal){
+            console.log(`Price - Old: ${oldVal[0]}, New: ${newVal[0]}`);
+            console.log(`Tax - Old: ${oldVal[1]}, New: ${newVal[1]}`);
+            console.log(`Tip - Old: ${oldVal[2]}, New: ${newVal[2]}`);
+            
+            vm.subtotalCharge = vm.price * (1 + (vm.tax)/100);
+            vm.tipCharge = vm.subtotalCharge * (vm.tip / 100); 
+            vm.totalCharge = vm.subtotalCharge + vm.tipCharge;
     });
 
+	vm.finalTips = function(){
+        console.log('final tips');
+        console.log(vm.tipTotal);
+		vm.tipTotal+= vm.tipCharge;
+        console.log(vm.tipTotal);
+	};
 
-	$scope.$watchGroup(['vm.tipTotal', 'vm.mealCount'], function(newValues,oldValues, scope){
-			if($scope.mealCount != 0){
-				vm.tipAverage = vm.tipTotal / vm.mealCount;
-			} else {
-				vm.tipAverage = 0;
-			}
-		
-	});
+	vm.averageTip = function(){
+        console.log('average tip');
+		console.log(vm.tipTotal);
+		console.log(vm.mealCount);
+		vm.tipAverage = vm.tipTotal / vm.mealCount;
+	};
+
+
 }]);
