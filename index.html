@@ -22,25 +22,31 @@
                 <h3>Enter the Meal Details</h3>
                 <div class="inputBox">
                   <label for="price">Base Meal Price: $</label>
-                  <input type="number" name="price" ng-model="num.price" required>
+                  <input type="number" ng-min="0" name="price" ng-model="num.price" required>
                 </div>
                 <br>
                 <div class="inputBox">
                   <label for="tax">Tax Rate: %</label>
-                  <input type="number" name="tax" ng-model="num.tax" required>
+                  <input type="number" ng-min="0" name="tax" ng-model="num.tax" required>
                 </div>
                 <br>
                 <div class="inputBox">
                   <label for="tip">Tip Percentage: %</label>
-                  <input type="number" name="tip" ng-model="num.tip" required>
+                  <input type="number" ng-min="0" name="tip" ng-model="num.tip" required>
                 </div>
                 <br>
                 <div class="btn-container">
-                  <button id="submit">Submit</button>
-                  <button id="cancel" ng-click="num.cancelValues()">Cancel</button>
+                  <input id="submit" type="submit" name="">
+                  <button id="cancel" type="button" ng-click="num.cancelValues()">Cancel</button>
                 </div>
                 <div id="error">
                   <p>{{ num.errorMsg }}</p>
+                  <p ng-if="num.myForm.$submitted && num.myForm.price.$error.min">Price cannot be a negative number</p>
+                  <p ng-if="num.myForm.$submitted && num.myForm.tax.$error.min">
+                  Tax cannot be a negative number</p>
+                  <p ng-if="num.myForm.$submitted && num.myForm.tip.$error.min">
+                  Tip cannot be a negative number
+                  </p>
                 </div>
               </div>
             </div>

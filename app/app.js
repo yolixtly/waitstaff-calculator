@@ -54,19 +54,7 @@ app.controller("CalculatorCtrl", function(){
 	};
 
 	this.averageTip = function(){
-		console.log(this.tipTotal);
-		console.log(this.mealCount);
 		this.tipAverage = this.tipTotal / this.mealCount;
 	};
-	// this.$watchGroup(["this.price", "this.tax", "this.tip"], function(){
-	// 		if(this.myForm.$invalid){
-	// 			this.initCharge();
-	// 		} else {
-	// 		this.subtotalCharge = this.price * (1 + (this.tax)/100);
-	// 		this.tipCharge = this.subtotalCharge * (this.tip / 100); 
-	// 		this.totalCharge = this.subtotalCharge + this.tipCharge;
-	// 		}
-	// });
-	
 
 });
