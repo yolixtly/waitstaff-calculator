@@ -45,6 +45,7 @@ input {
   border: 0.2em solid;
   outline: none;
 }
+#submit,
 button {
   margin: 2em;
   background: none;
