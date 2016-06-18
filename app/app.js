@@ -5,81 +5,83 @@ app.config(['$routeProvider', function($routeProvider){
 		controller : 'HomeCtrl'
 	}).when('/newMeal', {
 		templateUrl : 'templates/new-meal.html',
-		controller: 'NewMealCtrl as num'
+		controller: 'NewMealCtrl',
+		controllerAs : 'num'
 	}).when('/earnings', {
 		templateUrl: 'templates/my-earnings.html',
-		controller: 'EarningsCtrl as num', 
+		controller: 'EarningsCtrl', 
+		controllerAs : 'num'
 
 	});
 }]);
 
-app.controller('HomeCtrl',['$scope', function($scope){
-	//some Code here
+
+
+app.controller('HomeCtrl',['$scope', '$rootScope', function($scope, $rootScope){
+//properties on the $scope
+$scope.$parent
+
 }]);
 
-app.controller('NewMealCtrl', ['$scope', function($scope){
-		//some code here
+app.controller('NewMealCtrl',['$scope', '$rootScope', function($scope, $rootScope){
+
+		//Trigered by Cancel button
+		$scope.cancelValues = function(){
+		$scope.price = "";
+		$scope.tax = "";
+		$scope.tip ="";
+	 	};  
+
+		$scope.initCharge = function (){
+		$scope.subtotalCharge = 0;
+		$scope.tipCharge = 0;
+		$scope.totalCharge = 0;	
+	};
+
+		//Submit Events 
+	$scope.submitForm = function(){
+		if($scope.num.myForm.$invalid){
+			$scope.errorMsg = "Please enter valid numeric values";
+		} else {
+			$scope.errorMsg = "";
+			$scope.subtotalCharge = $scope.price * (1 + ($scope.tax)/100);
+			$scope.tipCharge = $scope.subtotalCharge * ($scope.tip / 100); 
+	 		$scope.totalCharge = $scope.subtotalCharge + $scope.tipCharge;
+			$scope.mealCount++;
+			$scope.$parent.finalTips();
+			$scope.$parent.averageTip();
+			//Only resets price, tip and tax values
+			$scope.$parent.cancelValues();
+			$scope.$parent.initCharge();
+		}	
+	};
 }]);
 
-app.controller('EarningsCtrl', ['$scope', function($scope){
-	// SOME CODE HERE
+app.controller('EarningsCtrl',['$scope', '$rootScope', function($scope, $rootScope){
+	
+	//Trigered by Reset Button
+	$rootScope.initEarnings = function(){
+		$rootScope.tipTotal = 0;
+		$rootScope.mealCount = 0;
+		$rootScope.tipAverage = 0;
+	};
+
+	$rootScope.finalTips = function(){
+		$rootScope.tipTotal+= $scope.tipCharge;
+	};
+
+	$rootScope.averageTip = function(){
+		$rootScope.tipAverage = $rootScope.tipTotal / $rootScope.mealCount;
+	};
 }]);
 
 // app.controller("CalculatorCtrl", function(){
-
-// 	this.initCharge = function (){
-// 		this.subtotalCharge = 0;
-// 		this.tipCharge = 0;
-// 		this.totalCharge = 0;	
-// 	};
-
-// 	this.initEarnings = function(){
-// 		this.tipTotal = 0;
-// 		this.mealCount = 0;
-// 		this.tipAverage = 0;
-// 	};
-
-// 	//Trigered by Cancel button
-// 	this.cancelValues = function(){
-// 	this.price = "";
-// 	this.tax = "";
-// 	this.tip ="";
-//  	};
-
-//  	//Trigered by Reset Button
-//  	this.resetAll = function() {
-//  		this.errorMsg= "";
-//  		this.cancelValues();
-//  		this.initCharge();
-//  		this.initEarnings();
+//  	$scope.resetAll = function() {
+//  		$scope.errorMsg= "";
+//  		$scope.cancelValues();
+//  		$scope.initEarnings();
 //  	};
 
 //  	//initial Values of App
-//  	this.resetAll();
-
-//  	//Submit Events 
-// 	this.submitForm = function(){
-// 		if(this.myForm.$invalid){
-// 			this.errorMsg = "Please enter valid numeric values";
-// 		} else {
-// 			this.errorMsg = "";
-// 			this.subtotalCharge = this.price * (1 + (this.tax)/100);
-// 			this.tipCharge = this.subtotalCharge * (this.tip / 100); 
-// 	 		this.totalCharge = this.subtotalCharge + this.tipCharge;
-// 			this.mealCount++;
-// 			this.finalTips();
-// 			this.averageTip();
-// 			//Only resets price, tip and tax values
-// 			this.cancelValues();
-// 		}	
-// 	};
-
-// 	this.finalTips = function(){
-// 		this.tipTotal+= this.tipCharge;
-// 	};
-
-// 	this.averageTip = function(){
-// 		this.tipAverage = this.tipTotal / this.mealCount;
-// 	};
-
+//  	resetAll();
 // });
