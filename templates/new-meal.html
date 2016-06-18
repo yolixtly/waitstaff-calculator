@@ -1,0 +1,48 @@
+<section ng-controller="CalculatorCtrl as num">
+      <div class="container">
+        <div class="row">
+          <form name="num.myForm" ng-submit="num.submitForm()" novalidate>
+            <div class="col-xs-12 col-md-6 left">
+              <div class="leftUp">
+                <h3>Enter the Meal Details</h3>
+                <div class="inputBox">
+                  <label for="price">Base Meal Price: $</label>
+                  <input type="number" ng-min="0" name="price" ng-model="num.price" required>
+                </div>
+                <br>
+                <div class="inputBox">
+                  <label for="tax">Tax Rate: %</label>
+                  <input type="number" ng-min="0" name="tax" ng-model="num.tax" required>
+                </div>
+                <br>
+                <div class="inputBox">
+                  <label for="tip">Tip Percentage: %</label>
+                  <input type="number" ng-min="0" name="tip" ng-model="num.tip" required>
+                </div>
+                <br>
+                <div class="btn-container">
+                  <input id="submit" type="submit" name="">
+                  <button id="cancel" type="button" ng-click="num.cancelValues()">Cancel</button>
+                </div>
+                <div id="error">
+                  <p>{{ num.errorMsg }}</p>
+                  <p ng-if="num.myForm.$submitted && num.myForm.price.$error.min">Price cannot be a negative number</p>
+                  <p ng-if="num.myForm.$submitted && num.myForm.tax.$error.min">
+                  Tax cannot be a negative number</p>
+                  <p ng-if="num.myForm.$submitted && num.myForm.tip.$error.min">
+                  Tip cannot be a negative number
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="col-xs-12 col-md-6 right">
+            <div class="col-xs-12 rightUp">
+              <h3>Customer Charges</h3>
+              <label>Subtotal: </label><span>{{ num.subtotalCharge | currency }}</span><br>
+              <label>Tip: </label><span>{{ num.tipCharge | currency }}</span>
+              <hr>
+              <label>Total: </label><span>{{ num.totalCharge | currency }}</span>
+            </div>    
+      </div>
+    </section>

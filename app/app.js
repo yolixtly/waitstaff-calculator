@@ -3,11 +3,26 @@ app.config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/', {
 		templateUrl : 'templates/home.html',
 		controller : 'HomeCtrl'
+	}).when('/newMeal', {
+		templateUrl : 'templates/new-meal.html',
+		controller: 'NewMealCtrl as num'
+	}).when('/earnings', {
+		templateUrl: 'templates/my-earnings.html',
+		controller: 'EarningsCtrl as num', 
+
 	});
 }]);
 
-app.controller("HomeCtrl",['$scope', function($scope){
+app.controller('HomeCtrl',['$scope', function($scope){
 	//some Code here
+}]);
+
+app.controller('NewMealCtrl', ['$scope', function($scope){
+		//some code here
+}]);
+
+app.controller('EarningsCtrl', ['$scope', function($scope){
+	// SOME CODE HERE
 }]);
 
 // app.controller("CalculatorCtrl", function(){
