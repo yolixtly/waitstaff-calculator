@@ -1,60 +1,70 @@
-var app = angular.module("myCalculator", []);
+var app = angular.module("myCalculator", ['ngRoute']);
+app.config(['$routeProvider', function($routeProvider){
+	$routeProvider.when('/', {
+		templateUrl : 'templates/home.html',
+		controller : 'HomeCtrl'
+	});
+}]);
 
-app.controller("CalculatorCtrl", function(){
+app.controller("HomeCtrl",['$scope', function($scope){
+	//some Code here
+}]);
 
-	this.initCharge = function (){
-		this.subtotalCharge = 0;
-		this.tipCharge = 0;
-		this.totalCharge = 0;	
-	};
+// app.controller("CalculatorCtrl", function(){
 
-	this.initEarnings = function(){
-		this.tipTotal = 0;
-		this.mealCount = 0;
-		this.tipAverage = 0;
-	};
+// 	this.initCharge = function (){
+// 		this.subtotalCharge = 0;
+// 		this.tipCharge = 0;
+// 		this.totalCharge = 0;	
+// 	};
 
-	//Trigered by Cancel button
-	this.cancelValues = function(){
-	this.price = "";
-	this.tax = "";
-	this.tip ="";
- 	};
+// 	this.initEarnings = function(){
+// 		this.tipTotal = 0;
+// 		this.mealCount = 0;
+// 		this.tipAverage = 0;
+// 	};
 
- 	//Trigered by Reset Button
- 	this.resetAll = function() {
- 		this.errorMsg= "";
- 		this.cancelValues();
- 		this.initCharge();
- 		this.initEarnings();
- 	};
+// 	//Trigered by Cancel button
+// 	this.cancelValues = function(){
+// 	this.price = "";
+// 	this.tax = "";
+// 	this.tip ="";
+//  	};
 
- 	//initial Values of App
- 	this.resetAll();
+//  	//Trigered by Reset Button
+//  	this.resetAll = function() {
+//  		this.errorMsg= "";
+//  		this.cancelValues();
+//  		this.initCharge();
+//  		this.initEarnings();
+//  	};
 
- 	//Submit Events 
-	this.submitForm = function(){
-		if(this.myForm.$invalid){
-			this.errorMsg = "Please enter valid numeric values";
-		} else {
-			this.errorMsg = "";
-			this.subtotalCharge = this.price * (1 + (this.tax)/100);
-			this.tipCharge = this.subtotalCharge * (this.tip / 100); 
-	 		this.totalCharge = this.subtotalCharge + this.tipCharge;
-			this.mealCount++;
-			this.finalTips();
-			this.averageTip();
-			//Only resets price, tip and tax values
-			this.cancelValues();
-		}	
-	};
+//  	//initial Values of App
+//  	this.resetAll();
 
-	this.finalTips = function(){
-		this.tipTotal+= this.tipCharge;
-	};
+//  	//Submit Events 
+// 	this.submitForm = function(){
+// 		if(this.myForm.$invalid){
+// 			this.errorMsg = "Please enter valid numeric values";
+// 		} else {
+// 			this.errorMsg = "";
+// 			this.subtotalCharge = this.price * (1 + (this.tax)/100);
+// 			this.tipCharge = this.subtotalCharge * (this.tip / 100); 
+// 	 		this.totalCharge = this.subtotalCharge + this.tipCharge;
+// 			this.mealCount++;
+// 			this.finalTips();
+// 			this.averageTip();
+// 			//Only resets price, tip and tax values
+// 			this.cancelValues();
+// 		}	
+// 	};
 
-	this.averageTip = function(){
-		this.tipAverage = this.tipTotal / this.mealCount;
-	};
+// 	this.finalTips = function(){
+// 		this.tipTotal+= this.tipCharge;
+// 	};
 
-});
+// 	this.averageTip = function(){
+// 		this.tipAverage = this.tipTotal / this.mealCount;
+// 	};
+
+// });
