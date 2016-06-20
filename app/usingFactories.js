@@ -21,7 +21,8 @@ app.controller('HomeCtrl',['$scope', '$rootScope', function($scope, $rootScope){
 
 app.controller('NewMealCtrl',['$scope', '$rootScope', 'messageFactory', function($scope, $rootScope, messageFactory){
 
-	$scope.check = messageFactory.check();  
+	$scope.check = messageFactory.check();
+	console.log(messageFactory.check());  
 	$scope.initCharge = function (){
 		$scope.subtotalCharge = 0;
 		$scope.tipCharge = 0;
