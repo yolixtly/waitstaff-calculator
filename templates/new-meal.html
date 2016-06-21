@@ -1,27 +1,27 @@
       <div class="container">
         <div class="row">
-          <form name="myForm" ng-submit="submitForm()" novalidate>
+          <form name="myForm" ng-submit="vm.calculate()" novalidate>
             <div class="col-xs-12 col-md-6 left">
               <div class="leftUp">
                 <h3>Enter the Meal Details</h3>
                 <div class="inputBox">
                   <label for="price">Base Meal Price: $</label>
-                  <input type="number" ng-min="0" name="price" ng-model="price" required>
+                  <input type="number" ng-min="0" name="price" ng-model="vm.price" required>
                 </div>
                 <br>
                 <div class="inputBox">
                   <label for="tax">Tax Rate: %</label>
-                  <input type="number" ng-min="0" name="tax" ng-model="tax" required>
+                  <input type="number" ng-min="0" name="tax" ng-model="vm.tax" required>
                 </div>
                 <br>
                 <div class="inputBox">
                   <label for="tip">Tip Percentage: %</label>
-                  <input type="number" ng-min="0" name="tip" ng-model="tip" required>
+                  <input type="number" ng-min="0" name="tip" ng-model="vm.tip" required>
                 </div>
                 <br>
                 <div class="btn-container">
-                  <input id="submit" type="submit" name="">
-                  <button id="cancel" type="button" ng-click="cancelValues()">Cancel</button>
+                  <input id="submit" type="submit">
+                  <button id="cancel" type="button" ng-click="vm.cancelValues()">Cancel</button>
                 </div>
                 <div id="error">
                   <p>{{ errorMsg }}</p>
@@ -38,10 +38,10 @@
           <div class="col-xs-12 col-md-6 right">
             <div class="col-xs-12 rightUp">
               <h3>Customer Charges</h3>
-              <label>Subtotal: </label><span>{{ subtotalCharge | currency }}</span><br>
-              <label>Tip: </label><span>{{ tipCharge | currency }}</span>
+              <label>Subtotal: </label><span>{{ invoice.subtotalCharge | currency }}</span><br>
+              <label>Tip: </label><span>{{ invoice.tipCharge | currency }}</span>
               <hr>
-              <label>Total: </label><span>{{ totalCharge | currency }}</span>
+              <label>Total: </label><span>{{ invoice.totalCharge | currency }}</span>
             </div>    
       </div>
-      <pre>{{ check | json }}</pre>
+      <!-- <pre>{{ check | json }}</pre> -->

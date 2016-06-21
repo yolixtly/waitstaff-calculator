@@ -132,5 +132,8 @@ app.factory('messageFactory', function() {
 });
 
 app.controller('EarningsCtrl',['$scope', '$rootScope', 'messageFactory', function($scope, $rootScope, messageFactory){
-	$scope.check = messageFactory.check();  
+	$scope.check = messageFactory.check(); 
+	$scope.tipTotal = messageFactory.check().tipTotal;
+	$scope.mealCount = messageFactory.check().mealCount;
+	$scope.tipAverage = messageFactory.check().tipAverage; 
 }]);

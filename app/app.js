@@ -1,139 +1,120 @@
-var app = angular.module("myCalculator", ['ngRoute']);
+"use strict";
+
+var app = angular.module('myCalculator', ['ngRoute']);
 app.config(['$routeProvider', function($routeProvider){
-	$routeProvider.when('/', {
-		templateUrl : 'templates/home.html',
-		controller : 'HomeCtrl'
-	}).when('/newMeal', {
-		templateUrl : 'templates/new-meal.html',
-		controller: 'NewMealCtrl'
-	}).when('/earnings', {
-		templateUrl: 'templates/my-earnings.html',
-		controller: 'EarningsCtrl'
-	});
+  $routeProvider.when('/', {
+    templateUrl : 'templates/home.html',
+    controller : 'GeneralCtrl as vm'
+  }).when('/newMeal', {
+    templateUrl : 'templates/new-meal.html',
+    controller: 'GeneralCtrl as vm'
+  }).when('/earnings', {
+    templateUrl: 'templates/my-earnings.html',
+    controller: 'GeneralCtrl as vm'
+  }).when('/error', {
+    template: '<p> Error - Page Not Found</p>'
+  }).otherwise('/error');
 }]);
 
+// //When a route is not found or a resolver fails, the application will redirect itself to the /error Route
+// app.run(['$rootScope', '$location', function($rootScope, $location){
+//  $rootScope.$on('$rootScope', function(){
+//    $location.path('/error');
+//  });
+// }]);
 
+app.controller('GeneralCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+   
+   // var vm = this;
 
-app.controller('HomeCtrl',['$scope', '$rootScope', function($scope, $rootScope){
+   //Calculate the first section: customer Charges
+   function customerCharges(data) {
+      //object that holds everything
+      var invoice = {};
 
+      invoice.subtotalCharge = data.price * (1 + (data.tax) / 100);
+      invoice.tipCharge = invoice.subtotalCharge * (data.tip / 100);
+      invoice.totalCharge = invoice.subtotalCharge + invoice.tipCharge;
+      
+      return invoice;
+   }
 
-}]);
+   //Calculate my Earnings section
+    function myEarnings(data) {
 
-app.controller('NewMealCtrl',['$scope', '$rootScope', 'messageFactory', function($scope, $rootScope, messageFactory){
+      data.earnings.mealCount++;
+      data.earnings.tipTotal += data.tipCharge;
+      data.earnings.tipAverage = data.earnings.tipTotal / data.earnings.mealCount;
+      
+      return data.earnings;
+    }
 
-	$scope.check = messageFactory.check();
- 
-	$scope.initCharge = function (){
-		$scope.subtotalCharge = 0;
-		$scope.tipCharge = 0;
-		$scope.totalCharge = 0;	
-	};
+    //Set all to initial state:
 
-	$scope.initEarnings = function(){
-		$scope.tipTotal = 0;
-		$scope.mealCount = 0;
-		$scope.tipAverage = 0;
-	};
+    //Earnings to Init
+    function initEarnings() {
+      var earnings = {};
 
-	//Trigered by Cancel button
-	$scope.cancelValues = function(){
-	$scope.price = "";
-	$scope.tax = "";
-	$scope.tip ="";
- 	};
+      earnings.tipTotal = 0;
+      earnings.mealCount = 0;
+      earnings.tipAverage = 0;
 
- 	//Trigered by Reset Button
- 	$scope.resetAll = function() {
- 		$scope.errorMsg= "";
- 		$scope.cancelValues();
- 		$scope.initCharge();
- 		$scope.initEarnings();
- 	};
+      return earnings;
+    }
 
- 	//initial Values of App
- 	$scope.resetAll();
+    //Charges to init
+    function initCharge(){
+      var invoice = {};
 
- 	//Submit Events 
-	$scope.submitForm = function(){
-		if($scope.myForm.$invalid){
-			$scope.errorMsg = "Please enter valid numeric values";
-		} else {
-			$scope.check = messageFactory.calculateCharge($scope.tax, $scope.price, $scope.tip);
-			$scope.errorMsg = "";
-			$scope.subtotalCharge = $scope.price * (1 + ($scope.tax)/100);
-			$scope.tipCharge = $scope.subtotalCharge * ($scope.tip / 100); 
-	 		$scope.totalCharge = $scope.subtotalCharge + $scope.tipCharge;
-			$scope.mealCount++;
-			$scope.finalTips();
-			$scope.averageTip();
-			//Only resets price, tip and tax values
-			$scope.cancelValues();
+      invoice.subtotalCharge = 0;
+      invoice.tipCharge = 0;
+      invoice.totalCharge = 0;  
 
-		}	
-	};
+      return invoice;
+    }
 
-	$scope.finalTips = function(){
-		$scope.tipTotal+= $scope.tipCharge;
-	};
+    //calculate Charges 
 
-	$scope.averageTip = function(){
-		$scope.tipAverage = $scope.tipTotal / $scope.mealCount;
-	};
+    this.calculate = function () {
+      //Customer Invoice
+      $rootScope.invoice = customerCharges({
+        'price' : this.price,
+        'tax' : this.tax,
+        'tip' : this.tip
+      });
 
-
-}]);
-
-app.factory('messageFactory', function() {
-    var message = "Factory Hello World!";
-    subtotalCharge = 0;
-	tipCharge = 0; 
-	totalCharge = 0;
-	mealCount = 0;
-	tipTotal = 0;
-	tipAverage = 0;
-
-    return {
-        check: function() {
-            return {
-            	subtotalCharge: subtotalCharge,
-            	tipCharge : tipCharge,
-            	totalCharge : totalCharge,
-            	mealCount : mealCount,
-            	tipTotal : tipTotal,
-            	tipAverage : tipAverage
-            };
-        },
-        checkLastCharge: function() {
-            return {
-            	subtotalCharge: subtotalCharge,
-            	tipCharge : tipCharge,
-            	totalCharge : totalCharge
-            };
-        }, 
-        calculateCharge : function(tax, price, tip) {
-        	subtotalCharge = price * (1 + (tax)/100);
-			tipCharge = subtotalCharge * (tip / 100); 
-			totalCharge = subtotalCharge + tipCharge;
-			mealCount++;
-			tipTotal+= tipCharge;
-			tipAverage = tipTotal / mealCount;
-
-		   return {
-            	subtotalCharge: subtotalCharge,
-            	tipCharge : tipCharge,
-            	totalCharge : totalCharge,
-            	mealCount : mealCount,
-            	tipTotal : tipTotal,
-            	tipAverage : tipAverage
-            };	
-        }
+      // Update my Earnings
+      $rootScope.earnings = myEarnings({
+        'tipCharge' : $rootScope.invoice.tipCharge,
+        'earnings' : $rootScope.earnings
+      });
     };
-});
 
-app.controller('EarningsCtrl',['$scope', '$rootScope', 'messageFactory', function($scope, $rootScope, messageFactory){
-	$scope.check = messageFactory.check(); 
-	$scope.tipTotal = messageFactory.check().tipTotal;
-	$scope.mealCount = messageFactory.check().mealCount;
-	$scope.tipAverage = messageFactory.check().tipAverage;
+    //Clear meal details with Cancel button
+    this.cancelValues = function() {
+      this.price = '';
+      this.tax = '';
+      this.tip ='';
+
+      if($scope.myForm) {
+        $scope.myForm.$setPristine();
+      }
+    };
+
+    //reset the entire App
+    this.resetAll = function() {
+      $rootScope.invoice = initCharge();
+      $rootScope.earnings = initEarnings();
+
+      this.cancelValues();
+
+      $rootScope.initialized = true;
+    };
+
+    if($rootScope.initialized){
+      this.resetAll(true);
+    }
+ 
 
 }]);
+
