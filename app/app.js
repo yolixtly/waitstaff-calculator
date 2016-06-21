@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('myCalculator', ['ngRoute']);
+var app = angular.module('myCalculator', ['ngRoute', 'ngAnimate']);
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider.when('/', {
     templateUrl : 'templates/home.html',

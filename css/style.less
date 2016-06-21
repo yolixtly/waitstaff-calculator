@@ -122,3 +122,27 @@ hr {
   align-items: center;
   justify-content: center;
 }
+
+/* Animation Styles */
+
+.animate-view.ng-enter,
+.animate-view.ng-leave {
+  transition:0.5s linear all;
+}
+.animate-view.ng-enter {
+  opacity:0; 
+  transition-delay: 0.4s;
+  transform: translateX(-100%);
+}
+.animate-view.ng-enter.ng-enter-active { 
+  opacity:1; 
+  transform: translateX(0);
+}
+.animate-view.ng-leave { 
+  opacity:1; 
+  // transform: translateX(0);
+}
+.animate-view.ng-leave.ng-leave-active { 
+  opacity:0; 
+  // transform: translateX(-100%);
+}
