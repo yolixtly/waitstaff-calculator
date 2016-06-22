@@ -1,0 +1,15 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12  col-md-6 col-md-offset-3 rightDown">
+			<h3>My Earnings Info</h3>
+			<label>Tip total: </label><span>{{ earnings.tipTotal | currency }}</span><br>
+			<label>Meal Count: </label><span>{{ earnings.mealCount | number }}</span><br>
+			<label>Average Tip Per Meal: </label><span>{{ earnings.tipAverage | currency }}</span>
+		</div>
+	</div>
+	<div class="reset-center">
+		<button id="reset" ng-click="vm.resetAll()">Reset</button>
+	</div>
+</div>
+</div>
+</div>

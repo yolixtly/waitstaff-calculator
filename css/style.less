@@ -15,7 +15,7 @@ header {
   border: 0.2em solid;
   text-align: center;
   padding: 0;
-  margin-top: 2em;
+  margin-top: 3em;
 }
 .leftUp {
   height: 35em;
@@ -88,4 +88,61 @@ hr {
   #reset {
     width: 40%;
   }
+  #viewOptions {
+    font-size: 1.2em !important;
+  }
+}
+
+/*View Buttons styles */
+#viewOptions {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.5em;
+    a {
+      padding: 1em 1em;
+      color: black;
+      transition: color 0.5s ease-out;
+      text-decoration: none;
+      &:hover {
+        color: #009688;
+      }
+    }
+}
+
+/* home style */
+#instructions {
+  padding: 5%;
+  h3 {
+    padding-bottom: 2%;
+  }
+}
+
+.reset-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animation Styles */
+
+.animate-view.ng-enter,
+.animate-view.ng-leave {
+  transition:0.5s linear all;
+}
+.animate-view.ng-enter {
+  opacity:0; 
+  transition-delay: 0.4s;
+  transform: translateX(-100%);
+}
+.animate-view.ng-enter.ng-enter-active { 
+  opacity:1; 
+  transform: translateX(0);
+}
+.animate-view.ng-leave { 
+  opacity:1; 
+  // transform: translateX(0);
+}
+.animate-view.ng-leave.ng-leave-active { 
+  opacity:0; 
+  // transform: translateX(-100%);
 }
