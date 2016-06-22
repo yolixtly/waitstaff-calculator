@@ -16,18 +16,15 @@ app.config(['$routeProvider', function($routeProvider){
   }).otherwise('/error');
 }]);
 
-// //When a route is not found or a resolver fails, the application will redirect itself to the /error Route
-// app.run(['$rootScope', '$location', function($rootScope, $location){
-//  $rootScope.$on('$rootScope', function(){
-//    $location.path('/error');
-//  });
-// }]);
+//When a route is not found or a resolver fails, the application will redirect itself to the /error Route
+app.run(['$rootScope', '$location', function($rootScope, $location){
+ $rootScope.$on('$rootScope', function(){
+   $location.path('/error');
+ });
+}]);
 
-app.controller('GeneralCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
-   
-   // var vm = this;
-
-   //Calculate the first section: customer Charges
+app.controller('GeneralCtrl', ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
+  //Calculate the first section: customer Charges
    function customerCharges(data) {
       //object that holds everything
       var invoice = {};
@@ -105,16 +102,13 @@ app.controller('GeneralCtrl', ['$scope', '$rootScope', function($scope, $rootSco
     this.resetAll = function() {
       $rootScope.invoice = initCharge();
       $rootScope.earnings = initEarnings();
-
       this.cancelValues();
-
+      $location.path('/newMeal');
       $rootScope.initialized = true;
     };
 
-    if($rootScope.initialized){
+    if(!$rootScope.initialized) {
       this.resetAll(true);
     }
- 
-
 }]);
 
