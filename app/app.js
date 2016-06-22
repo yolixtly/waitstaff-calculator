@@ -13,7 +13,9 @@ app.config(['$routeProvider', function($routeProvider){
     controller: 'GeneralCtrl as vm'
   }).when('/error', {
     template: '<p> Error - Page Not Found</p>'
-  }).otherwise('/error');
+  }).otherwise({
+    redirectTo: '/error'
+  });
 }]);
 
 //When a route is not found or a resolver fails, the application will redirect itself to the /error Route
