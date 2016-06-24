@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var app = angular.module('myCalculator', ['ngRoute', 'ngAnimate']);
 app.config(['$routeProvider', function($routeProvider){

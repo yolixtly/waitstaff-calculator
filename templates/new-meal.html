@@ -2,7 +2,7 @@
   <div class="row">
     <form name="myForm" ng-submit="myForm.$valid && vm.calculate()" novalidate>
       <div class="col-xs-12 col-md-6 left">
-        <div class="leftUp">
+        <div class="leftUp sectionBox">
           <h3>Enter the Meal Details</h3>
           <div class="inputBox">
             <label for="price">Base Meal Price: $</label>
@@ -31,7 +31,7 @@
             <p ng-if="myForm.$submitted && myForm.tip.$error.min">
               Tip cannot be a negative number
             </p>
-             <p ng-if="myForm.$submitted && myForm.tip.$error.required">
+            <p ng-if="myForm.$submitted && myForm.tip.$error.required">
               all inputs must be filed
             </p>
           </div>
@@ -39,7 +39,7 @@
       </div>
     </form>
     <div class="col-xs-12 col-md-6 right">
-      <div class="col-xs-12 rightUp">
+      <div class="col-xs-12 rightUp sectionBox">
         <h3>Customer Charges</h3>
         <label>Subtotal: </label><span>{{ invoice.subtotalCharge | currency }}</span><br>
         <label>Tip: </label><span>{{ invoice.tipCharge | currency }}</span>
