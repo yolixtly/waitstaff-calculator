@@ -4,13 +4,16 @@ var app = angular.module('myCalculator', ['ngRoute', 'ngAnimate']);
 app.config(['$routeProvider', function($routeProvider){
   $routeProvider.when('/', {
     templateUrl : 'templates/home.html',
-    controller : 'GeneralCtrl as vm'
+    controller : 'GeneralCtrl',
+    controllerAs : 'vm'
   }).when('/newMeal', {
     templateUrl : 'templates/new-meal.html',
-    controller: 'GeneralCtrl as vm'
+    controller : 'GeneralCtrl',
+    controllerAs : 'vm'
   }).when('/earnings', {
     templateUrl: 'templates/my-earnings.html',
-    controller: 'GeneralCtrl as vm'
+    controller : 'GeneralCtrl',
+    controllerAs : 'vm'
   }).when('/error', {
     template: '<p> Error - Page Not Found</p>'
   }).otherwise({
@@ -105,7 +108,7 @@ app.controller('GeneralCtrl', ['$scope', '$rootScope', '$location', function($sc
       $rootScope.invoice = initCharge();
       $rootScope.earnings = initEarnings();
       this.cancelValues();
-      $location.path('/newMeal');
+      $location.path('/');
       $rootScope.initialized = true;
     };
 
