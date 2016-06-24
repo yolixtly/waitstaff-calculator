@@ -1,5 +1,5 @@
-/* title variables */
-/*Labels and text variable */
+/* Title variables */
+/* Labels and text variable */
 /* Common Selectors */
 body {
   font-family: 'Muli', sans-serif;
@@ -8,10 +8,8 @@ header {
   text-align: center;
   letter-spacing: 0.1em;
 }
-/*Containers styles*/
-.leftUp,
-.rightUp,
-.rightDown {
+/* Containers styles */
+.sectionBox {
   border: 0.2em solid;
   text-align: center;
   padding: 0;
@@ -24,15 +22,13 @@ header {
 .rightDown {
   height: 16em;
 }
-.leftUp h3,
-.rightUp h3,
-.rightDown h3 {
+.sectionBox h3 {
   border-bottom: 0.2em solid;
   padding: 0.7em;
   margin: 0;
   margin-bottom: 1.5em;
 }
-/*LeftUp container Styles*/
+/* LeftUp container Styles */
 .inputBox {
   letter-spacing: 0.1em;
 }
@@ -93,7 +89,7 @@ hr {
     font-size: 1.2em !important;
   }
 }
-/*View Buttons styles */
+/* View Buttons styles */
 #viewOptions {
   margin: 0 auto;
   text-align: center;
@@ -108,7 +104,7 @@ hr {
 #viewOptions a:hover {
   color: #009688;
 }
-/* home style */
+/* Home style */
 #instructions {
   padding: 5%;
 }
